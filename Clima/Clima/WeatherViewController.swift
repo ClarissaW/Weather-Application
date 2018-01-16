@@ -15,7 +15,9 @@ import SwiftyJSON
 import SVProgressHUD
 
 
-class WeatherViewController: UIViewController,CLLocationManagerDelegate {
+class WeatherViewController: UIViewController,CLLocationManagerDelegate,ChangeCityDelegate {
+    
+    
     
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
@@ -182,13 +184,21 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     //MARK: - Change City Delegate methods
     /***************************************************************/
     
-    
     //Write the userEnteredANewCityName Delegate method here:
+    func userEnteredANewCityName(city: String) {
+        let params : [String : String] = ["q" : city, "appid" : APP_ID] // check the url keys
+        getWeatherData(url: WEATHER_URL, parameters: params)
+    }
     
 
     
     //Write the PrepareForSegue Method here
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "changeCityName" {
+            let DVC = segue.destination as! ChangeCityViewController
+            DVC.delegate = self // set the delegate as WeatherViewController
+        }
+    }
     
     
     

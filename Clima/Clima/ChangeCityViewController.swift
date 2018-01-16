@@ -16,7 +16,7 @@ protocol ChangeCityDelegate{
 
 
 class ChangeCityViewController: UIViewController {
-    
+    var delegate : ChangeCityDelegate?
     //Declare the delegate variable here:
 
     
@@ -30,13 +30,13 @@ class ChangeCityViewController: UIViewController {
         
         
         //1 Get the city name the user entered in the text field
-        
+        let cityName = changeCityTextField.text!
         
         //2 If we have a delegate set, call the method userEnteredANewCityName
-        
-        
+        delegate?.userEnteredANewCityName(city: cityName)
+        // the question mark checks whether it contains the value or if it is nil. if it contains a value, it will call the userEnteredANewCityName function
         //3 dismiss the Change City View Controller to go back to the WeatherViewController
-        
+        self.dismiss(animated: true, completion: nil)
         
     }
     
